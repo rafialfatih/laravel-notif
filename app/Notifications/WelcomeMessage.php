@@ -12,11 +12,10 @@ use Illuminate\Notifications\Notification;
 class WelcomeMessage extends Notification implements ShouldQueue
 {
     use Queueable;
-
+    
     public function __construct(
       protected readonly string $name
-    )
-    {}
+    ){}
 
     public function via(object $notifiable): array
     {
@@ -29,6 +28,7 @@ class WelcomeMessage extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+                    ->subject('Hi, ' . $this->name . '! Thank you for using our application!')
                     ->greeting('Welcome, ' . $this->name . '!')
                     ->line('The introduction to the notification.')
                     ->line('To start using our application, click button below.')
